@@ -11,43 +11,61 @@
     
     <style>
         :root {
-            --primary: #1e3a8a;
-            --accent: #2563eb;
-            --accent-hover: #1d4ed8;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text: #1e293b;
-            --muted: #475569;
-            --border: #cbd5e1;
-            --radius: 14px;
+            --bg-deep: #09090b;
+            --card-bg: rgba(24, 24, 27, 0.75); /* Efecto vidrio esmerilado oscuro */
+            --card-border: rgba(255, 255, 255, 0.1);
+            --primary-red: #ef4444;
+            --hover-red: #dc2626;
+            --accent-yellow: #facc15;
+            --text-light: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --input-bg: rgba(9, 9, 11, 0.6);
+            --radius: 16px;
         }
 
         body {
             font-family: 'Urbanist', sans-serif, system-ui;
-            background-color: var(--bg);
-            color: var(--text);
+            background-color: var(--bg-deep);
+            /* Fondo con sutiles destellos difuminados en rojo y amarillo para potenciar el glassmorphism */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(239, 68, 68, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(250, 204, 21, 0.08) 0%, transparent 40%);
+            color: var(--text-light);
             margin: 0;
             padding: 20px;
+            min-height: 100vh;
             -webkit-font-smoothing: antialiased;
         }
 
         .container {
             max-width: 620px;
-            margin: 0 auto;
+            margin: 20px auto;
             background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
             padding: 32px;
             border-radius: var(--radius);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
             transition: all 0.3s ease;
         }
 
         h2, h3 {
             font-family: 'Urbanist', sans-serif;
-            color: var(--primary);
+            color: var(--accent-yellow);
         }
 
-        h2 { font-size: 1.8rem; margin-top: 0; margin-bottom: 22px; font-weight: 700; letter-spacing: -0.5px; }
-        h3 { font-size: 1.35rem; font-weight: 700; }
+        h2 { 
+            font-size: 1.8rem; 
+            margin-top: 0; 
+            margin-bottom: 22px; 
+            font-weight: 700; 
+            letter-spacing: -0.5px;
+            border-bottom: 2px solid var(--primary-red);
+            padding-bottom: 12px;
+        }
+        
+        h3 { font-size: 1.35rem; font-weight: 700; color: var(--text-light); }
 
         .form-group {
             margin-bottom: 20px;
@@ -57,54 +75,61 @@
             display: block;
             font-weight: 600;
             margin-bottom: 8px;
-            font-size: 15px; /* Letra un poco más grande para mejor lectura */
-            color: var(--text);
+            font-size: 15px;
+            color: var(--text-light);
         }
 
         p {
             font-size: 15px;
             line-height: 1.5;
+            color: var(--text-muted);
         }
 
         input, textarea {
             width: 100%;
             padding: 14px;
-            border: 1px solid var(--border);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 10px;
             box-sizing: border-box;
-            font-size: 15px; /* Campos más cómodos para escribir */
+            font-size: 15px;
             font-family: 'Urbanist', sans-serif;
-            background-color: #fff;
+            background-color: var(--input-bg);
+            color: var(--text-light);
             transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #71717a;
         }
 
         input:focus, textarea:focus {
             outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+            border-color: var(--accent-yellow);
+            box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.2);
         }
 
         textarea { resize: vertical; height: 100px; }
 
+        /* Botón principal en Rojo impactante con hover dinámico */
         button {
-            background-color: var(--accent);
+            background-color: var(--primary-red);
             color: white;
             border: none;
             padding: 14px 20px;
             border-radius: 10px;
-            font-weight: 600;
+            font-weight: 700;
             font-family: 'Urbanist', sans-serif;
             cursor: pointer;
             width: 100%;
-            font-size: 16px; /* Botones más destacados */
+            font-size: 16px;
             transition: background-color 0.2s, transform 0.15s, box-shadow 0.15s;
-            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
         }
 
         button:hover {
-            background-color: var(--accent-hover);
-            transform: translateY(-1px);
-            box-shadow: 0 6px 12px -2px rgba(37, 99, 235, 0.3);
+            background-color: var(--hover-red);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(239, 68, 68, 0.5);
         }
 
         button:active {
@@ -112,58 +137,81 @@
         }
 
         .btn-secondary {
-            background-color: #64748b !important;
-            box-shadow: 0 4px 6px -1px rgba(100, 116, 139, 0.2) !important;
+            background-color: #27272a !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow: none !important;
+            color: var(--text-light) !important;
         }
         .btn-secondary:hover {
-            background-color: #475569 !important;
+            background-color: #3f3f46 !important;
         }
 
-        .btn-danger {
-            background-color: #ef4444 !important;
-            box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.2) !important;
+        .btn-warning-action {
+            background-color: var(--accent-yellow) !important;
+            color: #09090b !important;
+            box-shadow: 0 4px 12px rgba(250, 204, 21, 0.2) !important;
         }
-        .btn-danger:hover {
-            background-color: #dc2626 !important;
+        .btn-warning-action:hover {
+            background-color: #eab308 !important;
         }
 
         .hidden { display: none !important; }
 
         .alert {
             padding: 14px;
-            background-color: #fef2f2;
-            color: #991b1b;
-            border: 1px solid #fecaca;
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.3);
             border-radius: 10px;
             margin-bottom: 18px;
             font-size: 15px;
         }
 
         .history-card {
-            background: #f8fafc;
+            background: rgba(9, 9, 11, 0.5);
             padding: 18px;
             border-radius: 10px;
             margin-bottom: 14px;
-            border-left: 5px solid var(--accent);
-            font-size: 15px; /* Tarjetas más legibles */
+            border-left: 5px solid var(--accent-yellow);
+            font-size: 15px;
             line-height: 1.5;
-            border: 1px solid #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-left-width: 5px;
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .history-card:hover {
-            transform: translateX(2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transform: translateX(3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            border-color: rgba(250, 204, 21, 0.3);
         }
 
-        .badge-pendiente { color: #d97706; font-weight: 700; background: #fef3c7; padding: 4px 10px; border-radius: 6px; display: inline-block; font-size: 13px;}
-        .badge-emitida { color: #16a34a; font-weight: 700; background: #dcfce7; padding: 4px 10px; border-radius: 6px; display: inline-block; font-size: 13px;}
+        .badge-pendiente { 
+            color: #fef08a; 
+            font-weight: 700; 
+            background: rgba(250, 204, 21, 0.15); 
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            padding: 4px 10px; 
+            border-radius: 6px; 
+            display: inline-block; 
+            font-size: 13px;
+        }
+
+        .badge-emitida { 
+            color: #86efac; 
+            font-weight: 700; 
+            background: rgba(34, 197, 94, 0.15); 
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 4px 10px; 
+            border-radius: 6px; 
+            display: inline-block; 
+            font-size: 13px;
+        }
 
         hr {
             margin: 32px 0;
             border: 0;
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
@@ -174,7 +222,7 @@
 
     <!-- PASO 1: Validación de Socio/a -->
     <div id="auth-section">
-        <p style="color: var(--muted); margin-bottom: 22px;">Solo pueden facturar a través del MIMM las personas asociadas (socios/as con cuota al día).</p>
+        <p style="margin-bottom: 22px;">Solo pueden facturar a través del MIMM las personas asociadas (socios/as con cuota al día).</p>
         <div id="auth-error" class="alert hidden">DNI no encontrado o socio/a sin cuota al día.</div>
         <div class="form-group">
             <label for="dni-input">Ingresá tu Número de DNI:</label>
@@ -185,8 +233,8 @@
 
     <!-- PASO 2: Panel de Facturación -->
     <div id="app-section" class="hidden">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; background: #f1f5f9; padding: 12px 16px; border-radius: 10px;">
-            <span id="socio-welcome" style="font-weight: 700; color: var(--primary); font-size: 15px;"></span>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; background: rgba(0,0,0,0.3); padding: 12px 16px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);">
+            <span id="socio-welcome" style="font-weight: 700; color: var(--accent-yellow); font-size: 15px;"></span>
             <button onclick="cerrarSesion()" class="btn-secondary" style="width: auto; padding: 8px 14px; font-size: 13px;">Salir</button>
         </div>
 
@@ -232,11 +280,11 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
             <h3 style="margin: 0;">Mis Solicitudes y Estados</h3>
             <div style="display: flex; gap: 8px;">
-                <button onclick="sincronizarHistorial()" style="width: auto; padding: 8px 14px; font-size: 13px;">Actualizar Estados</button>
-                <button onclick="limpiarHistorial()" class="btn-danger" style="width: auto; padding: 8px 14px; font-size: 13px;">Borrar Historial</button>
+                <button onclick="sincronizarHistorial()" class="btn-warning-action" style="width: auto; padding: 8px 14px; font-size: 13px;">Actualizar Estados</button>
+                <button onclick="limpiarHistorial()" class="btn-secondary" style="width: auto; padding: 8px 14px; font-size: 13px; color: #fca5a5 !important;" title="Borrar historial local">Borrar</button>
             </div>
         </div>
-        <div id="historial-lista"><p style='color: var(--muted); font-size: 15px;'>Cargando solicitudes...</p></div>
+        <div id="historial-lista"><p style='font-size: 15px;'>Cargando solicitudes...</p></div>
     </div>
 </div>
 
@@ -304,7 +352,7 @@
 
     function sincronizarHistorial() {
         const contenedor = document.getElementById("historial-lista");
-        contenedor.innerHTML = "<p style='color: var(--muted); font-size: 15px;'>Sincronizando con la planilla...</p>";
+        contenedor.innerHTML = "<p style='font-size: 15px;'>Sincronizando con la planilla...</p>";
 
         fetch(`${URL_SCRIPT}?dni=${dniActual}`, { method: "GET", redirect: "follow" })
             .then(response => response.json())
@@ -314,7 +362,7 @@
                     if (misFacturasLocales.length > 0) {
                         renderizarLista(misFacturasLocales);
                     } else {
-                        contenedor.innerHTML = "<p style='color: var(--muted); font-size: 15px;'>No tenés solicitudes registradas.</p>";
+                        contenedor.innerHTML = "<p style='font-size: 15px;'>No tenés solicitudes registradas.</p>";
                     }
                     return;
                 }
@@ -337,13 +385,13 @@
 
     function cargarHistorialLocalVacio() {
         const contenedor = document.getElementById("historial-lista");
-        contenedor.innerHTML = "<p style='color: var(--muted); font-size: 15px;'>No tenés solicitudes registradas.</p>";
+        contenedor.innerHTML = "<p style='font-size: 15px;'>No tenés solicitudes registradas.</p>";
     }
 
     function renderizarLista(facturas) {
         const contenedor = document.getElementById("historial-lista");
         if (!facturas || facturas.length === 0) {
-            contenedor.innerHTML = "<p style='color: var(--muted); font-size: 15px;'>No tenés solicitudes registradas.</p>";
+            contenedor.innerHTML = "<p style='font-size: 15px;'>No tenés solicitudes registradas.</p>";
             return;
         }
 
@@ -357,10 +405,10 @@
 
             contenedor.innerHTML += `
                 <div class="history-card">
-                    <strong style="color: var(--primary);">Socio/a:</strong> ${fac.nombre} (DNI: ${fac.dni})<br>
+                    <strong style="color: var(--accent-yellow);">Socio/a:</strong> ${fac.nombre} (DNI: ${fac.dni})<br>
                     <strong>Destinatario (CUIT):</strong> ${fac.cuit} <br>
                     <strong>Detalle:</strong> ${fac.detalle} <br>
-                    <strong>Monto:</strong> $${fac.monto} <br>
+                    <strong>Monto:</strong> <span style="color: var(--accent-yellow); font-weight:700;">$${fac.monto}</span> <br>
                     <strong>Enviar a:</strong> ${fac.correo} <br>
                     <strong>Fecha:</strong> ${fac.fecha} <br>
                     <strong>Estado:</strong> <span class="${claseEstado}">${fac.estado}</span>
